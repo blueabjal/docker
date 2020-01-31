@@ -1,5 +1,5 @@
 version: '3.5'
-services:
+services: 
   elasticsearch:
     hostname: elasticsearch
     image: elasticsearch:7.4.0
@@ -7,8 +7,8 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      - bootstrap.memory_lock=true
-      - transport.host=127.0.0.1
+      - bootstrap.memory_lock=true # Restricting elasticsearch to not to use swap memory
+      - transport.host=127.0.0.1  #The host address to publish for nodes in the cluster to connect to
       - http.host=0.0.0.0
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
