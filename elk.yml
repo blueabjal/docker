@@ -1,0 +1,30 @@
+version: '3.5'
+services:
+  elasticsearch:
+    hostname: elasticsearch
+    image: elasticsearch:7.4.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - bootstrap.memory_lock=true
+      - transport.host=127.0.0.1
+      - http.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data
+  kibana:
+    hostname: kibana
+    image: kibana:7.4.0
+    ports:
+      - "5601:5601"
+    volumes:
+      - ./kibana.conf:/usr/share/kibana/config/kibana.conf
+  logstash 
+    image: logstash:7.4.0
+    hostname: logstash
+    volumes:
+       - "./logstash.conf:/usr/share/logstash/pipeline/logstash.conf"
+       - "./logs:/var/log/logs"
+volumes:
+  elastic_data:
